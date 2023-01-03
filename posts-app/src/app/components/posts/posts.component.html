@@ -1,0 +1,9 @@
+<ul class="divide-y divide-gray-200">
+  <li *ngFor="let post of getPost$ | async; let i = index" class="py-4 flex">
+    <label class="text-sm font-medium text-gray-900">{{ i + 1 }} </label>
+    <div class="ml-3">
+      <p class="text-sm font-medium text-gray-900">{{ post.title }}</p>
+      <p class="text-sm text-gray-500">{{ post.body }}</p>
+    </div>
+  </li>
+</ul>
