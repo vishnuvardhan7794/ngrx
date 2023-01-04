@@ -17,6 +17,7 @@ const routes: Routes = [
         path: 'createpost',
         component: CreatePostsComponent,
       },
+      {path: 'post/:id/details', component:CreatePostsComponent, pathMatch: 'full'}
     ],
   },
 ];

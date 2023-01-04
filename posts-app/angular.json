@@ -110,5 +110,10 @@
       }
     }
   },
-  "defaultProject": "posts-app"
+  "defaultProject": "posts-app",
+  "cli": {
+    "schematicCollections": [
+      "@ngrx/schematics"
+    ]
+  }
 }

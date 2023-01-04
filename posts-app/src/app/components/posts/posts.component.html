@@ -1,9 +1,16 @@
-<ul class="divide-y divide-gray-200">
-  <li *ngFor="let post of getPost$ | async; let i = index" class="py-4 flex">
-    <label class="text-sm font-medium text-gray-900">{{ i + 1 }} </label>
-    <div class="ml-3">
-      <p class="text-sm font-medium text-gray-900">{{ post.title }}</p>
-      <p class="text-sm text-gray-500">{{ post.body }}</p>
+<div class="row">
+  <div class="col-3 pb-2 pt-2 ml-2">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+      [formControl]="searchPost">
+  </div>
+</div>
+<div class="list-group">
+  <a href="#" *ngFor="let post of getPost$ | async; let i = index"
+    class="list-group-item list-group-item-action flex-column align-items-start"
+    [routerLink]="['/post', post.id, 'details']">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1"> {{ i + 1 }} {{ post.title }}</h5>
     </div>
-  </li>
-</ul>
+    <p class="mb-1">{{ post.body }}</p>
+  </a>
+</div>
