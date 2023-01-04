@@ -18,11 +18,7 @@ export interface Post {
 export class PostsService {
   getPost$ = new BehaviorSubject<Post[]>([]);
   constructor(private http: HttpClient) {
-    this.http.get(apiUrl + `/posts`).pipe(
-      tap((res)=> this.getPost$.next(res as Post[])),
-      shareReplay(1),
-      take(1)
-    ).subscribe();
+    this.loadPost();
   }
   getPosts(): Observable<Post[]> {
     return this.getPost$;
@@ -31,5 +27,12 @@ export class PostsService {
     const currentPost = this.getPost$.value;
     currentPost.unshift(post);
     this.getPost$.next(currentPost)
+  }
+  loadPost(){
+    this.http.get(apiUrl + `/posts`).pipe(
+      tap((res)=> this.getPost$.next(res as Post[])),
+      shareReplay(1),
+      take(1)
+    ).subscribe();
   }
 }

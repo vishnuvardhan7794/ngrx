@@ -37,4 +37,18 @@ describe('PostsService', () => {
      done()
     })
   });
+  test('should have get all post', (done) => {
+    let post = {
+      title: 'test',
+      body: 'Testing app',
+      userId: "1",
+      id:"1"
+    }
+    service.postNewPost(post as Post);
+    service.getPosts().subscribe((res)=>{
+     expect(res[0].title).toEqual(post.title);
+     expect(res.length).toEqual(1);
+     done()
+    })
+  });
 });
