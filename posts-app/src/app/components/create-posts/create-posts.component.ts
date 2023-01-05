@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Post, PostsService } from 'src/app/services/posts.service';
+import { Post, PostsService } from '../../services/posts.service';
 import { Injector } from '@angular/core';
 import { map, take } from 'rxjs/operators';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -20,7 +20,7 @@ export class CreatePostsComponent {
     private fb: FormBuilder,
     private router: Router,
     private injector: Injector,
-    private activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute
   ) {
     this.postService = this.injector.get(PostsService);
     this.postForm = this.fb.group({
