@@ -5,12 +5,12 @@ import { Injector } from '@angular/core';
 import {
   debounceTime,
   map,
-  shareReplay,
   startWith,
   switchMap,
 } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 
+const isStringInclues = (title: string, search: string) => !search || title.toLowerCase().includes(search.toLowerCase());
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
@@ -31,9 +31,7 @@ export class PostsComponent implements OnInit {
           .pipe(
             map((res) =>
               res.filter(
-                (post) =>
-                  !search ||
-                  post.title.toLowerCase().includes(search.toLowerCase())
+                (post) => isStringInclues(post.title, search)
               )
             )
           )
