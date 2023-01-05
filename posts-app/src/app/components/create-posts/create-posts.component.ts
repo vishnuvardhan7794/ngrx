@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Post, PostsService } from '../../services/posts.service';
+import { PostsService } from '../../services/posts.service';
 import { Injector } from '@angular/core';
 import { map, take } from 'rxjs/operators';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-
+import { Post } from '../../types/post.interface';
 @Component({
   selector: 'app-create-posts',
   templateUrl: './create-posts.component.html',

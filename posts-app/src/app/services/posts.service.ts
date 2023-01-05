@@ -3,13 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { apiUrl } from '../../environments/enviroment.dev';
 import { shareReplay, take, tap } from 'rxjs/operators';
+import { Post } from '../types/post.interface';
 
-export interface Post {
-  title: string,
-  body: string,
-  userId: string,
-  id: string
-}
 
 
 @Injectable({

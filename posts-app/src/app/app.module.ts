@@ -8,6 +8,10 @@ import { PostsComponent } from './components/posts/posts.component';
 import { CreatePostsComponent } from './components/create-posts/create-posts.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
+import { reducers } from './store/reducers';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +23,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot({}), 
+    StoreModule.forFeature('posts', reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly:environment.production,
+      autoPause: true
+  })
   ],
   providers: [],
   bootstrap: [AppComponent]
