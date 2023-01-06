@@ -1,6 +1,7 @@
 import { PostsStateInterface } from "../types/postState.interface"
 import {createReducer, on} from '@ngrx/store';
 import * as PostsActions from './actions'
+import { Post } from "../types/post.interface";
 export const initialState: PostsStateInterface = {
    isLoading:false,
    posts : [],
@@ -20,5 +21,13 @@ export const reducers = createReducer(
     on(PostsActions.getPosts, (state, action) => ({
         ...state ,
          isLoading: false,
-    }))
+    })),
+    on(PostsActions.addPost, (state, action)=>{
+        let posts = [...state.posts];
+        posts.push(action.payload)
+        return {
+            ...state,
+            posts:posts
+        }
+    }) 
 )

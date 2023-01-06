@@ -4,16 +4,19 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { apiUrl } from '../../environments/enviroment.dev';
 import { map, shareReplay, take, tap } from 'rxjs/operators';
 import { Post } from '../types/post.interface';
-
-
+import { Store } from '@ngrx/store';
+import { AppStateInterface } from '../types/appState.interface';
+import * as PostService from '../store/actions'
+// import * as PostService from '../'
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
   getPost$ = new BehaviorSubject<Post[]>([]);
-  constructor(private http: HttpClient) {
-    this.loadPost().pipe(take(1)).subscribe((res)=>this.getPost$.next(res as Post[]));
+  constructor(private http: HttpClient, private store : Store<AppStateInterface>) {
+    this.store.dispatch(PostService.getPosts())
+    // this.loadPost().pipe(take(1)).subscribe((res)=> this.getPost$.next(res as Post[]));
   }
   /**
    * 

@@ -26,16 +26,15 @@ import { PostsEffects } from './store/effects';
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}), 
+    StoreModule.forRoot({}),
     EffectsModule.forRoot(),
     StoreModule.forFeature('posts', reducers),
     EffectsModule.forFeature([PostsEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
-      logOnly:environment.production,
+      logOnly: environment.production,
       autoPause: true
-  }),
-    EffectsModule.forRoot([])
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

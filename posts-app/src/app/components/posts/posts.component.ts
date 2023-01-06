@@ -14,7 +14,13 @@ import * as PostService from '../../store/actions'
 import { isLoadingSelector, postsSelector } from 'src/app/store/selectors';
 import { AppStateInterface } from 'src/app/types/appState.interface';
 
-const isStringInclues = (title: string, search: string) => !search || title.toLowerCase().includes(search.toLowerCase());
+/**
+ * is search string included in post title 
+ * @param title post title
+ * @param search search string
+ * @returns boolean 
+ */
+const isStringIncludes = (title: string, search: string) => !search || title.toLowerCase().includes(search.toLowerCase());
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
@@ -37,10 +43,13 @@ export class PostsComponent implements OnInit {
       switchMap((search) =>
       this.store.select(postsSelector)
           .pipe(
-            map((res) =>
-              res.filter(
-                (post) => isStringInclues(post.title, search)
+            map((res) => {
+              console.log('res', res)
+             return res.filter(
+                (post) => isStringIncludes(post.title, search)
               )
+            }
+              
             )
           )
       )
@@ -48,6 +57,6 @@ export class PostsComponent implements OnInit {
   }
 
   ngOnInit(): void { 
-    this.store.dispatch(PostService.getPosts())
+    // this.store.dispatch(PostService.)
   }
 }

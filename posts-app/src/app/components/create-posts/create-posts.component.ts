@@ -6,6 +6,8 @@ import { Injector } from '@angular/core';
 import { map, take } from 'rxjs/operators';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Post } from '../../types/post.interface';
+import { Store } from '@ngrx/store';
+import  * as PostActions from '../../store/actions'
 @Component({
   selector: 'app-create-posts',
   templateUrl: './create-posts.component.html',
@@ -20,7 +22,8 @@ export class CreatePostsComponent {
     private fb: FormBuilder,
     private router: Router,
     private injector: Injector,
-    public activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    public store:Store
   ) {
     this.postService = this.injector.get(PostsService);
     this.postForm = this.fb.group({
@@ -68,7 +71,11 @@ export class CreatePostsComponent {
         userId: Math.floor(Math.random() * 1000),
         id: this.postService.getPost$.value.length + 1,
       };
-      await this.postService.postNewPost(user);
+      this.store.dispatch(PostActions.addPost({payload: user}));
+      
+      // this.store.dispatch(PostActions.addPost, user)
+      // 
+      // await this.postService.postNewPost(user);
       this.router.navigate(['/posts']);
     } catch (e) {
       console.log('e', e);
