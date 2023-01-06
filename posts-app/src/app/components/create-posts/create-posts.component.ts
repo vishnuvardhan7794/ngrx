@@ -8,8 +8,8 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Post } from '../../types/post.interface';
 import { Store } from '@ngrx/store';
 import * as PostActions from '../../store/actions'
-import { postsSelector } from 'src/app/store/selectors';
-import { AppStateInterface } from 'src/app/types/appState.interface';
+import { postsSelector } from '../../store/selectors';
+import { AppStateInterface } from '../../types/appState.interface';
 @Component({
   selector: 'app-create-posts',
   templateUrl: './create-posts.component.html',
@@ -25,7 +25,7 @@ export class CreatePostsComponent {
     private router: Router,
     private injector: Injector,
     public activatedRoute: ActivatedRoute,
-    private store: Store<AppStateInterface>
+    public store: Store<AppStateInterface>
   ) {
     this.postService = this.injector.get(PostsService);
     this.postForm = this.fb.group({

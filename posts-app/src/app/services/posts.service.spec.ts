@@ -19,9 +19,9 @@ describe('PostsService', () => {
     service = TestBed.inject(PostsService);
   });
 
-  // it('should be created', () => {
-  //   expect(service).toBeTruthy();
-  // });
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
   // it('should have a getPost return []', (done) => {
   //   service.getPost$.subscribe((res) => {
   //     expect(res).toEqual([]);

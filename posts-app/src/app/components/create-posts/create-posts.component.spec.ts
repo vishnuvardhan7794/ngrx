@@ -5,10 +5,14 @@ import { PostsService } from '../../services/posts.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
-
+import * as PostActions from '../../store/actions'
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers } from '../../store/reducers';
+import { PostsEffects } from '../../store/effects';
 describe('CreatePostsComponent', () => {
   let component: CreatePostsComponent;
   let fixture: ComponentFixture<CreatePostsComponent>;
@@ -19,6 +23,10 @@ describe('CreatePostsComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule.withRoutes([]),
         HttpClientModule,
+        StoreModule.forRoot({}),
+        EffectsModule.forRoot(),
+        StoreModule.forFeature('posts', reducers),
+        EffectsModule.forFeature([PostsEffects]),
       ],
       providers: [
         {
@@ -76,7 +84,7 @@ describe('CreatePostsComponent', () => {
       id: '1',
       userId: '1'
     }
-    // component.postService.postNewPost(getPostById)
+    component.store.dispatch(PostActions.addPost({payload:getPostById}))
     component.getDetails$.subscribe(() => {
       expect(component.currenPost$.value?.id).toEqual(getPostById.id);
       expect(component.postForm.get('title')?.value).toEqual(getPostById.title);
