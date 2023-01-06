@@ -30,33 +30,32 @@ export class PostsComponent implements OnInit {
   getPost$!: Observable<any>;
   postService!: PostsService;
   searchPost = new FormControl(null);
-  isLoading$!:Observable<boolean>
+  isLoading$!: Observable<boolean>
   constructor(
     private injector: Injector,
-    private store : Store<AppStateInterface>
-    ) {
+    private store: Store<AppStateInterface>
+  ) {
     this.isLoading$ = this.store.select(isLoadingSelector)
     this.postService = this.injector.get(PostsService);
     this.getPost$ = this.searchPost.valueChanges.pipe(
       startWith(''),
       debounceTime(500),
       switchMap((search) =>
-      this.store.select(postsSelector)
+        this.store.select(postsSelector)
           .pipe(
             map((res) => {
-              console.log('res', res)
-             return res.filter(
+              return res.filter(
                 (post) => isStringIncludes(post.title, search)
               )
             }
-              
+
             )
           )
       )
     );
   }
 
-  ngOnInit(): void { 
-    // this.store.dispatch(PostService.)
+  ngOnInit(): void {
+    // this.store.dispatch(PostService.getPosts())
   }
 }

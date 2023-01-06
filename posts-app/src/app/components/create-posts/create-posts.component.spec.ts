@@ -76,7 +76,7 @@ describe('CreatePostsComponent', () => {
       id: '1',
       userId: '1'
     }
-    component.postService.postNewPost(getPostById)
+    // component.postService.postNewPost(getPostById)
     component.getDetails$.subscribe(() => {
       expect(component.currenPost$.value?.id).toEqual(getPostById.id);
       expect(component.postForm.get('title')?.value).toEqual(getPostById.title);
