@@ -9,6 +9,10 @@ import {
   switchMap,
 } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import * as PostService from '../../store/actions'
+import { isLoadingSelector, postsSelector } from 'src/app/store/selectors';
+import { AppStateInterface } from 'src/app/types/appState.interface';
 
 const isStringInclues = (title: string, search: string) => !search || title.toLowerCase().includes(search.toLowerCase());
 @Component({
@@ -20,14 +24,18 @@ export class PostsComponent implements OnInit {
   getPost$!: Observable<any>;
   postService!: PostsService;
   searchPost = new FormControl(null);
-  constructor(private injector: Injector) {
+  isLoading$!:Observable<boolean>
+  constructor(
+    private injector: Injector,
+    private store : Store<AppStateInterface>
+    ) {
+    this.isLoading$ = this.store.select(isLoadingSelector)
     this.postService = this.injector.get(PostsService);
     this.getPost$ = this.searchPost.valueChanges.pipe(
       startWith(''),
       debounceTime(500),
       switchMap((search) =>
-        this.postService
-          .getPosts()
+      this.store.select(postsSelector)
           .pipe(
             map((res) =>
               res.filter(
@@ -39,5 +47,7 @@ export class PostsComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.store.dispatch(PostService.getPosts())
+  }
 }

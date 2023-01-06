@@ -12,6 +12,8 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { reducers } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { PostsEffects } from './store/effects';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,12 +27,15 @@ import { reducers } from './store/reducers';
     AppRoutingModule,
     ReactiveFormsModule,
     StoreModule.forRoot({}), 
+    EffectsModule.forRoot(),
     StoreModule.forFeature('posts', reducers),
+    EffectsModule.forFeature([PostsEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly:environment.production,
       autoPause: true
-  })
+  }),
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

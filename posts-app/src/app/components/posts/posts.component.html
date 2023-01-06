@@ -5,6 +5,7 @@
   </div>
 </div>
 <div class="list-group">
+  <div *ngIf="isLoading$ | async">Loading...</div>
   <a href="#" *ngFor="let post of getPost$ | async; let i = index"
     class="list-group-item list-group-item-action flex-column align-items-start"
     [routerLink]="['/post', post.id, 'details']">

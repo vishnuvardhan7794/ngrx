@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { apiUrl } from '../../environments/enviroment.dev';
-import { shareReplay, take, tap } from 'rxjs/operators';
+import { map, shareReplay, take, tap } from 'rxjs/operators';
 import { Post } from '../types/post.interface';
 
 
@@ -15,17 +15,29 @@ export class PostsService {
   constructor(private http: HttpClient) {
     this.loadPost().pipe(take(1)).subscribe((res)=>this.getPost$.next(res as Post[]));
   }
+  /**
+   * 
+   * @returns getall post
+   */
   getPosts(): Observable<Post[]> {
     return this.getPost$;
   }
+  /**
+   * postNewPost to add new post
+   * @param post new post object 
+   */
   postNewPost(post: Post) {
     const currentPost = this.getPost$.value;
     currentPost.unshift(post);
     this.getPost$.next(currentPost)
   }
-  loadPost() {
+  /**
+   * load all posts  
+   * @returns get all posts
+   */
+  loadPost():Observable<Post[]> {
     return this.http.get(apiUrl + `/posts`).pipe(
-      shareReplay(1),
-    );
+      map((res)=>res as Post[])
+    )
   }
 }

@@ -11,5 +11,14 @@ export const reducers = createReducer(
     initialState,
     on(PostsActions.getPosts, (state) => ({
         ...state , isLoading:true
+    })),
+    on(PostsActions.getPostsSuccess, (state, action) => ({
+        ...state , 
+        isLoading:false,
+        posts : action.posts
+    })),
+    on(PostsActions.getPosts, (state, action) => ({
+        ...state ,
+         isLoading: false,
     }))
 )
